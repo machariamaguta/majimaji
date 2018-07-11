@@ -8,11 +8,14 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.google.firebase.iid.FirebaseInstanceId;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
         //Initially checking if theres a network connection
         ConnectivityManager cm=(ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         NetworkInfo ni=cm.getActiveNetworkInfo();
+
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        Log.d("token", "token: " + refreshedToken);
+
         //End of checking if there's a network connection
         if(ni!=null && ni.isConnected())
         {
