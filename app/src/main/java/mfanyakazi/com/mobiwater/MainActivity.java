@@ -17,11 +17,14 @@ import android.webkit.WebViewClient;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.util.Objects;
+
 
 public class MainActivity extends AppCompatActivity {
 
     public WebView webview;
     public ProgressDialog progressDialog;
+    String mWeburl = "http://mobiwaternet.co.ke/m";
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -34,11 +37,15 @@ public class MainActivity extends AppCompatActivity {
 
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.d("token", "token: " + refreshedToken);
+        Bundle extras = this.getIntent().getExtras();
+        if(extras!=null) {
+            mWeburl = getIntent().getStringExtra("url");
+        }
 
         //End of checking if there's a network connection
         if(ni!=null && ni.isConnected())
         {
-            String weburl="http://mobiwaternet.co.ke/m";
+
             WebView webview=(WebView)findViewById(R.id.webView);
             //Enabling JavaScript
             WebSettings webSettings= webview.getSettings();
@@ -93,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                                      }
             );
             //Loading index
-            webview.loadUrl(weburl);
+            webview.loadUrl(mWeburl);
 
 
         }

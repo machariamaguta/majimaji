@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import mfanyakazi.com.mobiwater.NotifyController;
+
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private final String TAG = MyFirebaseMessagingService.class.getSimpleName();
     @Override
@@ -25,18 +27,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // Check if message contains a data payload.
         if (message.getData().size() > 0) {
-            Log.d(TAG, "Message data payload: " +  message.getData().get("time"));
+            Log.d(TAG, "Message data payload: " +  message.getData().get("url"));
 
             Gson gson = new Gson();
-//            DataObject dataObject = gson.fromJson(message.getData(), MyFirebaseMessagingService.DataObject.class);
+            handleNow(message);
 
-            if (/* Check if data needs to be processed by long running job */ true) {
-                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
-//                scheduleJob();
-            } else {
-                // Handle message within 10 seconds
-                handleNow();
-            }
 
         }
 
@@ -50,19 +45,24 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     }
     public class DataObject{
-        @SerializedName("time")
+        @SerializedName("url")
         @Expose
-        private String time;
+        private String url;
         public DataObject(){}
 
-        public String getTime() {
-            return time;
+        public String getUrl() {
+            return url;
         }
 
-        public void setTime(String time){
-            this.time = time;
+        public void setUrl(String url){
+            this.url = url;
         }
     }
 
-    public void handleNow(){}
+    public void handleNow(RemoteMessage message){
+        Log.e("handle now", "about to notify");
+        String url = message.getData().get("url");
+        NotifyController notifyController = new NotifyController(getApplicationContext(), url);
+        notifyController.tankNotification();
+    }
 }
