@@ -15,7 +15,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.Objects;
 
@@ -35,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
         ConnectivityManager cm=(ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
         NetworkInfo ni=cm.getActiveNetworkInfo();
 
-        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        Log.d("token", "token: " + refreshedToken);
         Bundle extras = this.getIntent().getExtras();
         if(extras!=null) {
             mWeburl = getIntent().getStringExtra("url");
@@ -111,5 +111,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 }
 

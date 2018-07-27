@@ -65,4 +65,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotifyController notifyController = new NotifyController(getApplicationContext(), url);
         notifyController.tankNotification();
     }
+
+    @Override
+    public void onNewToken(String str){
+        super.onNewToken(str);
+        Log.e("NEW_TOKEN", str);
+    }
 }
