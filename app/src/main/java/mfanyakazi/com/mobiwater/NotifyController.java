@@ -1,4 +1,5 @@
 package mfanyakazi.com.mobiwater;;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -22,6 +23,7 @@ public class NotifyController {
     }
 
     public void tankNotification(){
+        createNotificationChannel();
         // Create an explicit intent for an Activity in your app
         Log.e("intent url", url);
         Intent intent = new Intent(context, MainActivity.class);
@@ -40,6 +42,25 @@ public class NotifyController {
         notificationManager.notify((int)System.currentTimeMillis(), builder.build());
 
     }
+    private void createNotificationChannel() {
+        Log.e("notificationChannel", "in notification channel create");
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Log.e("notificationChannel", "is android 8");
+            CharSequence name = context.getString(R.string.channel_name);
+            String description = context.getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+            assert notificationManager != null;
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
 
 
 }

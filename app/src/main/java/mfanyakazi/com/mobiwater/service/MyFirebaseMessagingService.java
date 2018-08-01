@@ -3,6 +3,9 @@ package mfanyakazi.com.mobiwater.service;
 
 
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -13,6 +16,7 @@ import com.google.gson.annotations.SerializedName;
 
 import mfanyakazi.com.mobiwater.MainApplication;
 import mfanyakazi.com.mobiwater.NotifyController;
+import mfanyakazi.com.mobiwater.R;
 import mfanyakazi.com.mobiwater.model.TokenMessage;
 import mfanyakazi.com.mobiwater.model.TokenResponse;
 import mfanyakazi.com.mobiwater.utils.PrefUtils;
@@ -73,6 +77,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     public void handleNow(RemoteMessage message){
         Log.e("handle now", "about to notify");
+
         String url = message.getData().get("url");
         NotifyController notifyController = new NotifyController(getApplicationContext(), url);
         notifyController.tankNotification();
@@ -87,6 +92,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
     }
+
+
 
 
 }
