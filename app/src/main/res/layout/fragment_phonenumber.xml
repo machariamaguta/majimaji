@@ -10,15 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Enter phone number"
+        android:text="Enter email address"
         android:textColor="@color/colorPrimary"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="e.g 254729xxxxxx"
+        android:hint="e.g name@example.com"
         android:layout_gravity="center"
-        android:id="@+id/phone_number_et"/>
+        android:id="@+id/email_address_et"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

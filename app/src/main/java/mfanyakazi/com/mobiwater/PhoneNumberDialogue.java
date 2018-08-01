@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +24,7 @@ import mfanyakazi.com.mobiwater.utils.PrefUtils;
 public class PhoneNumberDialogue extends DialogFragment implements View.OnClickListener {
 
     private Button cancelBtn, submitBtn;
-    private EditText phoneNumberEt;
+    private EditText emailAddressEt;
     private More more;
     private PrefUtils prefUtils;
 
@@ -42,7 +43,7 @@ public class PhoneNumberDialogue extends DialogFragment implements View.OnClickL
 
         more = (More) getActivity();
         prefUtils = more.getPrefUtils();
-        phoneNumberEt = (EditText) view.findViewById(R.id.phone_number_et);
+        emailAddressEt = (EditText) view.findViewById(R.id.email_address_et);
         cancelBtn = (Button) view.findViewById(R.id.cancel_btn);
         submitBtn = (Button) view.findViewById(R.id.submit_btn);
 
@@ -58,13 +59,14 @@ public class PhoneNumberDialogue extends DialogFragment implements View.OnClickL
 
 
     private void sendVolunteerDetails() {
-        String phoneNumber = phoneNumberEt.getText().toString().trim();
+        // email address replaced phonenumber
+        String emailAddress = emailAddressEt.getText().toString().trim();
 
 
-        if (validateFields(phoneNumber)) {
-            String formatedNumber = "254"+phoneNumber.substring(phoneNumber.length()-9);
-            Log.e("formatedNo", formatedNumber);
-            prefUtils.setPhoneNumber(phoneNumber);
+        if (validateFields(emailAddress)) {
+//            String formatedNumber = "254"+emailAddress.substring(phoneNumber.length()-9);
+            Log.e("formatedNo", emailAddress);
+            prefUtils.setPhoneNumber(emailAddress);
             prefUtils.setHasSetPhoneNumber(true);
             if(prefUtils.getAppToken()!=null){
                 String appToken = prefUtils.getAppToken();
@@ -72,21 +74,25 @@ public class PhoneNumberDialogue extends DialogFragment implements View.OnClickL
 
                 NetworkService service = MainApplication.getInstance().getNetworkService();
                 SendToken sendToken = new SendToken(service);
-                sendToken.send(appToken, formatedNumber);
+                sendToken.send(appToken, emailAddress);
 
             }
             dismiss();
         }
     }
 
-    private boolean validateFields(String phoneNumber) {
-        phoneNumberEt.setError(null);
+    private boolean validateFields(String email) {
+        emailAddressEt.setError(null);
 
-        if (TextUtils.isEmpty(phoneNumber)) {
-            phoneNumberEt.setError("full name is required");
+        if (TextUtils.isEmpty(email)) {
+            emailAddressEt.setError("email is required");
             return false;
         }
 
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            emailAddressEt.setError("invalid email address");
+            return false;
+        }
         return true;
     }
 
