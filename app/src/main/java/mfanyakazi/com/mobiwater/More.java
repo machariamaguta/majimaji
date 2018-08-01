@@ -1,14 +1,19 @@
 package mfanyakazi.com.mobiwater;
 
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import mfanyakazi.com.mobiwater.utils.PrefUtils;
 
 
 public class More extends AppCompatActivity {
@@ -17,12 +22,15 @@ public class More extends AppCompatActivity {
     public static final String URL="";
     public WebView WEBVIEW;
     public ProgressDialog progressDialog;
+    private PrefUtils prefUtils;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more);
         extras=getIntent().getExtras();
+        prefUtils = new PrefUtils(this);
         if(extras!=null)
         {
             url=extras.getString(URL);
@@ -61,6 +69,10 @@ public class More extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
 
+                    if(!prefUtils.getHasSetPhoneNumber()){
+                       showPhoneNumberDialogoe();
+                    }
+
                 }
                 @Override
                 public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -76,6 +88,28 @@ public class More extends AppCompatActivity {
             });
 
         }
+
+
+    }
+
+
+    public PrefUtils getPrefUtils() {
+        return prefUtils;
+    }
+
+    public void showPhoneNumberDialogoe(){
+        // DialogFragment.show() will take care of adding the fragment
+        // in a transaction.  We also want to remove any currently showing
+        // dialog, so make our own transaction and take care of that here.
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Fragment prev  = getSupportFragmentManager().findFragmentByTag("dialog");
+
+        if(prev!=null) {ft.remove(prev);}
+
+        DialogFragment newFragment = PhoneNumberDialogue.getInstance();
+
+        newFragment.show(ft, "dialog");
+
 
 
     }

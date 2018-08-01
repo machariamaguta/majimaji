@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    android:padding="12dp"
+    android:layout_gravity="center"
+    android:id="@+id/phone_ll">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Enter phone number"
+        android:textColor="@color/colorPrimary"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="e.g 254729xxxxxx"
+        android:layout_gravity="center"
+        android:id="@+id/phone_number_et"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="8dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cancel_btn"
+            android:text="CANCEL"
+            android:layout_marginRight="24dp"
+            android:textColor="#ffffff"
+            android:background="@color/colorPrimaryLight"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/submit_btn"
+            android:text="SUBMIT"
+            android:textColor="#ffffff"
+            android:background="@color/colorPrimaryDark"/>
+    </LinearLayout>
+
+</LinearLayout>

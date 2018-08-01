@@ -11,10 +11,22 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import mfanyakazi.com.mobiwater.MainApplication;
 import mfanyakazi.com.mobiwater.NotifyController;
+import mfanyakazi.com.mobiwater.model.TokenMessage;
+import mfanyakazi.com.mobiwater.model.TokenResponse;
+import mfanyakazi.com.mobiwater.utils.PrefUtils;
+import retrofit2.Response;
+import rx.Observable;
+import rx.Observer;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private final String TAG = MyFirebaseMessagingService.class.getSimpleName();
+
     @Override
     public void onMessageReceived(RemoteMessage message) {
         // ...
@@ -70,5 +82,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onNewToken(String str){
         super.onNewToken(str);
         Log.e("NEW_TOKEN", str);
+        PrefUtils prefUtils = new PrefUtils(getApplicationContext());
+        prefUtils.setAppToken(str);
+
+
     }
+
+
 }

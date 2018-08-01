@@ -7,10 +7,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -19,7 +19,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
-import java.util.Objects;
+import mfanyakazi.com.mobiwater.service.NetworkService;
+import mfanyakazi.com.mobiwater.service.SendToken;
+import mfanyakazi.com.mobiwater.utils.PrefUtils;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -110,8 +112,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-    }
 
+    }
 
 }
 
