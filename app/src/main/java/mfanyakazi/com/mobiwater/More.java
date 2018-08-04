@@ -107,8 +107,12 @@ public class More extends AppCompatActivity {
         if(prev!=null) {ft.remove(prev);}
 
         DialogFragment newFragment = PhoneNumberDialogue.getInstance();
+        try {
+            newFragment.show(ft, "dialog");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
-        newFragment.show(ft, "dialog");
 
 
 
