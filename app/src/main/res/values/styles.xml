@@ -9,4 +9,6 @@
         <item name="android:windowActionBarOverlay">@null</item>
     </style>
 
+    <style name="CustomBorderless" parent="@style/Widget.AppCompat.Button.Borderless"></style>
+
 </resources>
