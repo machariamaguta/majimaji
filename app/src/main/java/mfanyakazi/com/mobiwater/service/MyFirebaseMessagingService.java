@@ -79,7 +79,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.e("handle now", "about to notify");
 
         String url = message.getData().get("url");
-        NotifyController notifyController = new NotifyController(getApplicationContext(), url);
+        String info = message.getData().get("info");
+        NotifyController notifyController = new NotifyController(getApplicationContext(), url, info);
         notifyController.tankNotification();
     }
 

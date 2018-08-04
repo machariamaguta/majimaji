@@ -21,9 +21,11 @@ public class NotifyController {
     private int notificationId = 1011;
     private Context context;
     private String url;
-    public NotifyController(Context context, String url){
+    private String info;
+    public NotifyController(Context context, String info, String url){
         this.context = context;
         this.url = url;
+        this.info = info;
     }
 
     public void tankNotification(){
@@ -39,7 +41,7 @@ public class NotifyController {
 //        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Tank update")
+                .setContentTitle(info)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
