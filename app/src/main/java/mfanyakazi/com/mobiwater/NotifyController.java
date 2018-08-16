@@ -2,6 +2,7 @@ package mfanyakazi.com.mobiwater;;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +23,7 @@ public class NotifyController {
     private Context context;
     private String url;
     private String info;
-    public NotifyController(Context context, String info, String url){
+    public NotifyController(Context context, String url, String info){
         this.context = context;
         this.url = url;
         this.info = info;
@@ -34,8 +35,13 @@ public class NotifyController {
         Log.e("intent url", url);
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra("url", url);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        stackBuilder.addNextIntentWithParentStack(intent);
+
+        PendingIntent pendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+
+//        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         //Define sound URI
         Uri soundUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE+ "://" + context.getPackageName() + "/raw/water_splash");
 //        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
